@@ -45,9 +45,9 @@ namespace HorseTrackAtm.Tests
         [TestMethod()]
         public void UnknownCommand()
         {
-            var input = "asdfsf";
-            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
-            var actual = command.Execute();
+            var command = "asdfsf";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
 
             string expected = "Invalid Command: asdfsf";
 
@@ -59,9 +59,9 @@ namespace HorseTrackAtm.Tests
         {
             _atm.UpdateInventory(1, 7);
 
-            var input = "r";
-            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
-            var actual = command.Execute();
+            var command = "r";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
             
             Assert.AreEqual(_defaultStatusMessage, actual);
         }
@@ -69,12 +69,42 @@ namespace HorseTrackAtm.Tests
         [TestMethod()]
         public void Quit()
         {
-            var input = "q";
-            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
-            var actual = command.Execute();
+            var command = "q";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
 
             Assert.IsTrue(actual.Length == 0);
             Assert.IsTrue(_atm.IsQuitting);
+        }
+
+        [DataTestMethod]
+        [DataRow("wasdf", "Invalid Command: wasdf", 1)]
+        [DataRow("w sdf", "Invalid Command: w sdf", 1)]
+        [DataRow("w 99", "Invalid Horse Number: 99", 1)]
+        public void SetWinningHorseInvalid(string command, string expectedStatus, int expectedWinningHorseNumber)
+        {
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+
+            Assert.AreEqual(expectedStatus, actual);
+            Assert.AreEqual(expectedWinningHorseNumber, _atm.WinningHorse);
+        }
+
+        [TestMethod()]
+        public void SetWinningHorse()
+        {
+            var command = "w 3";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+
+            var expectedStatus = string.Copy(_defaultStatusMessage);
+            expectedStatus = expectedStatus.Replace("won", "lost");
+            expectedStatus = expectedStatus.Replace("Sheep, 9, lost", "Sheep, 9, won");
+
+            Assert.AreEqual(expectedStatus, actual);
+
+            var expectedWinningHorseNumber = 3;
+            Assert.AreEqual(expectedWinningHorseNumber, _atm.WinningHorse);
         }
     }
 }

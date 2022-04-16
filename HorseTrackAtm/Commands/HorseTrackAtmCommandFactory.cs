@@ -22,7 +22,7 @@ namespace HorseTrackAtm.Commands
                 case QuitCommand.FirstChar:
                     ret = new QuitCommand(atm, command);
                     break;
-                case 'W':
+                case SetWinningHorse.FirstChar:
                     ret = new SetWinningHorse(atm, command);
                     break;
                 default:

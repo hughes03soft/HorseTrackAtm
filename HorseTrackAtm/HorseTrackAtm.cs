@@ -70,5 +70,10 @@ namespace HorseTrackAtm
         {
             _denominations[denomination] = quantity;
         }
+
+        public Horse GetHorse(int number)
+        {
+            return _horses.Find(h => h.Number == number);
+        }
     }
 }
