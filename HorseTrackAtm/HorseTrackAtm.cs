@@ -37,6 +37,7 @@ namespace HorseTrackAtm
         {
             _horses = _loader.GetHorses();
             _horses.Sort();
+
             WinningHorse = _horses[0].Number;
         }
 
@@ -95,7 +96,7 @@ namespace HorseTrackAtm
 
         public Dictionary<int, int> DispenseCash(int payout)
         {
-            var ret = new Dictionary<int, int>(_denominations);
+            var ret = new Dictionary<int, int>();
             var temp = new Dictionary<int, int>(_denominations);
             var denoms = _denominations.Keys.Reverse();
 
@@ -104,9 +105,12 @@ namespace HorseTrackAtm
                 var quantity = temp[denom];
                 var maxQuantity = FindMaxDenomQuantity(payout, denom, quantity);
 
-                payout -= denom * maxQuantity;
-                temp[denom] -= maxQuantity;
-                ret[denom] = maxQuantity;
+                if(maxQuantity > 0)
+                {
+                    payout -= denom * maxQuantity;
+                    temp[denom] -= maxQuantity;
+                    ret[denom] = maxQuantity;
+                }
 
                 if (payout == 0)
                     break;

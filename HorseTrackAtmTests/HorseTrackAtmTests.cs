@@ -163,5 +163,34 @@ namespace HorseTrackAtm.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod()]
+        public void BetOnHorseSufficientFundsOneQuantityOfDenom()
+        {
+            var command = "1 1";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+            var expected =
+                "Payout: That Darn Gray Cat, $5" + Environment.NewLine +
+                "Dispensing:" + Environment.NewLine +
+                "$5, 1";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void BetOnHorseSufficientFundsOneQuantityOfTwoDenoms()
+        {
+            _atm.WinningHorse = 5;
+            var command = "5 2";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+            var expected =
+                "Payout: Real Princess, $6" + Environment.NewLine +
+                "Dispensing:" + Environment.NewLine +
+                "$1, 1" + Environment.NewLine +
+                "$5, 1";
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

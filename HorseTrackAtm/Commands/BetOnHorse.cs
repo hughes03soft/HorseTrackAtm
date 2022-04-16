@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HorseTrackAtm.Commands
@@ -88,11 +89,8 @@ namespace HorseTrackAtm.Commands
 
             message.AppendLine("Dispensing:");
 
-            foreach(var denom in payOutBreakDown)
+            foreach (var denom in payOutBreakDown.OrderBy(x => x.Key))
             {
-                if (denom.Value == 0)
-                    continue;
-
                 message.AppendFormat("{0}{1}, {2}", 
                     HorseTrackAtm.Currency, denom.Key, denom.Value);
                 message.AppendLine();
