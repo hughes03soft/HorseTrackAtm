@@ -8,7 +8,7 @@ namespace HorseTrackAtm.Commands
 {
     public class BetOnHorse : HorseTrackAtmCommand
     {
-        private int _horseNumber = 0;
+        private int _betOnHorseNumber = 0;
         private Horse _horse;
         private decimal _decimalBet;
         private string _possibleBet;
@@ -23,14 +23,20 @@ namespace HorseTrackAtm.Commands
             if (_possibleBet.Contains("."))
                 return GetInvalidBetMessage();
 
-            _horse = _atm.GetHorse(_horseNumber);
+            _horse = _atm.GetHorse(_betOnHorseNumber);
             if (_horse == null)
                 return GetInvalidHorseNumberMessage();
 
-            if (_atm.WinningHorse != _horseNumber)
+            if (_atm.WinningHorse != _betOnHorseNumber)
                 return GetNoPayoutMessage();
 
-            return "";
+            var payOut = (int)_decimalBet * _horse.Odds;
+            var payOutBreakDown = _atm.DispenseCash(payOut);
+
+            if (payOutBreakDown.Count == 0)
+                return GetInsufficientFundsMessge();
+
+            return GetPayoutMessage(payOut, payOutBreakDown);
         }
 
         private bool IsValid(string command)
@@ -42,7 +48,7 @@ namespace HorseTrackAtm.Commands
                 return false;
 
             var possibleHorseNumber = command.Substring(0, firstSpaceIndex);
-            var ret = int.TryParse(possibleHorseNumber, out _horseNumber);
+            var ret = int.TryParse(possibleHorseNumber, out _betOnHorseNumber);
             if (ret == false)
                 return false;
 
@@ -56,17 +62,40 @@ namespace HorseTrackAtm.Commands
 
         private string GetInvalidHorseNumberMessage()
         {
-            return "Invalid Horse Number: " + _horseNumber;
+            return "Invalid Horse Number: " + _betOnHorseNumber;
         }
 
         private string GetNoPayoutMessage()
         {
-            return "No Payout: " + _horse.Name;
+            
+            return _atm.GetStatusMessage() + "No Payout: " + _horse.Name;
         }
 
         private string GetInvalidBetMessage()
         {
             return "Invalid Bet: " + _possibleBet;
+        }
+
+        private string GetInsufficientFundsMessge()
+        {
+            return "Insufficient Funds: " + _possibleBet;
+        }
+
+        private string GetPayoutMessage(int payOut, SortedDictionary<int, int> payOutBreakDown)
+        {
+            var message = new StringBuilder();
+
+            message.AppendFormat("Payout: {0}, ${1}", _horse.Name, payOut);
+            message.AppendLine();
+
+            message.AppendLine("Dispensing:");
+            foreach(var denom in payOutBreakDown)
+            {
+                message.AppendFormat("${0}, {1}", denom.Key, denom.Value);
+                message.AppendLine();
+            }
+
+            return message.ToString();
         }
     }
 }

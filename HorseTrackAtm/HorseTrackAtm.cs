@@ -8,7 +8,7 @@ namespace HorseTrackAtm
 {
     public class HorseTrackAtm
     {
-        private Dictionary<int, int> _denominations = new Dictionary<int, int>();
+        private SortedDictionary<int, int> _denominations = new SortedDictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
         private readonly IHorseTrackAtmDataLoader _loader;
         public int WinningHorse { get; set; }
@@ -74,6 +74,11 @@ namespace HorseTrackAtm
         public Horse GetHorse(int number)
         {
             return _horses.Find(h => h.Number == number);
+        }
+
+        public SortedDictionary<int, int> DispenseCash(int payout)
+        {
+            return new SortedDictionary<int, int>();
         }
     }
 }

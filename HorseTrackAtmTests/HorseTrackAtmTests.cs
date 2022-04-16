@@ -23,7 +23,7 @@ namespace HorseTrackAtm.Tests
                 "Horses:" + Environment.NewLine +
                 "1, That Darn Gray Cat, 5, won" + Environment.NewLine +
                 "2, Fort Utopia, 10, lost" + Environment.NewLine +
-                "3, CountSheep, 9, lost" + Environment.NewLine +
+                "3, Count Sheep, 9, lost" + Environment.NewLine +
                 "4, Ms Traitour, 4, lost" + Environment.NewLine +
                 "5, Real Princess, 3, lost" + Environment.NewLine +
                 "6, Pa Kettle, 5, lost" + Environment.NewLine +
@@ -117,6 +117,19 @@ namespace HorseTrackAtm.Tests
         {
             var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
             var actual = atmCommand.Execute();
+
+            Assert.AreEqual(expectedStatus, actual);
+        }
+
+        [TestMethod()]
+        public void BetOnHorseNoPayout()
+        {
+            var command = "3 3";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+
+            var expectedStatus = string.Copy(_defaultStatusMessage);
+            expectedStatus += "No Payout: Count Sheep";
 
             Assert.AreEqual(expectedStatus, actual);
         }
