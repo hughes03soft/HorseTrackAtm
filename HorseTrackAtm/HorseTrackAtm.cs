@@ -8,8 +8,6 @@ namespace HorseTrackAtm
 {
     public class HorseTrackAtm
     {
-        private readonly string Currency = "$";
-
         private Dictionary<int, int> _denominations = new Dictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
         
@@ -36,26 +34,27 @@ namespace HorseTrackAtm
 
         private void AppendInventoryStatus(StringBuilder status)
         {
-            status.AppendLine("Inventory:");
+            status.AppendLine(Constants.InventoryStatusHeader);
 
             foreach (var denomination in _denominations.Keys)
             {
                 var quantity = _denominations[denomination];
-                status.AppendFormat("{0}{1}, {2}", 
-                    Currency, denomination, quantity);
+                status.AppendFormat(Constants.InventoryStatusFormat,
+                    Constants.Currency, denomination, quantity);
                 status.AppendLine();
             }
         }
 
         private void AppendHorseStatus(StringBuilder status)
         {
-            status.AppendLine("Horses:");
+            status.AppendLine(Constants.HorsesStatusHeader);
 
             foreach (var horse in _horses)
             {
-                status.AppendFormat("{0}, {1}, {2}, {3}", 
+                status.AppendFormat(Constants.HorseStatusFormat, 
                     horse.Number, horse.Name, horse.Odds, 
-                    horse.Number == WinningHorse ? "won" : "lost");
+                    horse.Number == WinningHorse ?
+                    Constants.WinStatus : Constants.LossStatus);
                 status.AppendLine();
             }
         }
