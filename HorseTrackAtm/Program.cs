@@ -1,9 +1,5 @@
 ﻿using HorseTrackAtm.Commands;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HorseTrackAtm
 {
@@ -18,7 +14,7 @@ namespace HorseTrackAtm
             atm.LoadHorses();
 
             var message = atm.GetStatusMessage();
-            Console.Write(message);
+            Console.WriteLine(message);
 
             bool quit = false;
             while(quit == false)
@@ -31,7 +27,7 @@ namespace HorseTrackAtm
                 if (result.Length > 0)
                     Console.WriteLine(result);
 
-                Console.Write(atm.GetStatusMessage());
+                Console.WriteLine(atm.GetStatusMessage());
 
                 quit = atm.IsQuitting;
             }

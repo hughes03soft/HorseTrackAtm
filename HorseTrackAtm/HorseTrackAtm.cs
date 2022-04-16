@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HorseTrackAtm
 {
@@ -36,6 +35,8 @@ namespace HorseTrackAtm
             StringBuilder message = new StringBuilder();
             AppendInventoryStatus(message);
             AppendHorseStatus(message);
+
+            message.Remove(message.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 
             return message.ToString();
         }

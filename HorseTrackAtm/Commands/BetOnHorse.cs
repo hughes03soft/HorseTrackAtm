@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HorseTrackAtm.Commands
 {
@@ -67,8 +65,7 @@ namespace HorseTrackAtm.Commands
 
         private string GetNoPayoutMessage()
         {
-            
-            return _atm.GetStatusMessage() + "No Payout: " + _horse.Name;
+            return "No Payout: " + _horse.Name;
         }
 
         private string GetInvalidBetMessage()
@@ -89,6 +86,7 @@ namespace HorseTrackAtm.Commands
             message.AppendLine();
 
             message.AppendLine("Dispensing:");
+
             foreach(var denom in payOutBreakDown)
             {
                 if (denom.Value == 0)
@@ -97,6 +95,8 @@ namespace HorseTrackAtm.Commands
                 message.AppendFormat("${0}, {1}", denom.Key, denom.Value);
                 message.AppendLine();
             }
+
+            message.Remove(message.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 
             return message.ToString();
         }

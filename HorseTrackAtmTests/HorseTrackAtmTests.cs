@@ -27,7 +27,7 @@ namespace HorseTrackAtm.Tests
                 "4, Ms Traitour, 4, lost" + Environment.NewLine +
                 "5, Real Princess, 3, lost" + Environment.NewLine +
                 "6, Pa Kettle, 5, lost" + Environment.NewLine +
-                "7, Gin Stinger, 6, lost" + Environment.NewLine;
+                "7, Gin Stinger, 6, lost";
 
         public HorseTrackAtmTests()
         {
@@ -129,11 +129,9 @@ namespace HorseTrackAtm.Tests
             var command = "3 3";
             var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
             var actual = atmCommand.Execute();
+            var expected = "No Payout: Count Sheep";
 
-            var expectedStatus = string.Copy(_defaultStatusMessage);
-            expectedStatus += "No Payout: Count Sheep";
-
-            Assert.AreEqual(expectedStatus, actual);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
@@ -160,7 +158,7 @@ namespace HorseTrackAtm.Tests
                 "Dispensing:" + Environment.NewLine +
                 "$1, 1" + Environment.NewLine +
                 "$10, 1" + Environment.NewLine +
-                "$100, 4" + Environment.NewLine;
+                "$100, 4";
 
             Assert.AreEqual(expected, actual);
         }
