@@ -8,7 +8,7 @@ namespace HorseTrackAtm
 {
     public interface IHorseTrackAtmDataLoader
     {
-        SortedDictionary<int, int> GetDenominations();
+        Dictionary<int, int> GetDenominations();
         List<Horse> GetHorses();
     }
 }

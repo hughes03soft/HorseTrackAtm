@@ -8,9 +8,9 @@ namespace HorseTrackAtm
 {
     public class DefaultHorseTrackAtmDataLoader : IHorseTrackAtmDataLoader
     {
-        public SortedDictionary<int, int> GetDenominations()
+        public Dictionary<int, int> GetDenominations()
         {
-            var ret = new SortedDictionary<int, int>()
+            var ret = new Dictionary<int, int>()
             {
                 { 1,   10 },
                 { 5,   10 },

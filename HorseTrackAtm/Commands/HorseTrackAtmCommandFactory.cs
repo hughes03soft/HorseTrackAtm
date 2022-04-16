@@ -12,7 +12,7 @@ namespace HorseTrackAtm.Commands
         {
             var firstChar = char.ToUpper(command[0]);
 
-            HorseTrackAtmCommand ret = null;
+            HorseTrackAtmCommand ret;
 
             switch(firstChar)
             {

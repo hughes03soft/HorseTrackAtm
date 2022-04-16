@@ -81,7 +81,7 @@ namespace HorseTrackAtm.Commands
             return "Insufficient Funds: " + _possibleBet;
         }
 
-        private string GetPayoutMessage(int payOut, SortedDictionary<int, int> payOutBreakDown)
+        private string GetPayoutMessage(int payOut, Dictionary<int, int> payOutBreakDown)
         {
             var message = new StringBuilder();
 
