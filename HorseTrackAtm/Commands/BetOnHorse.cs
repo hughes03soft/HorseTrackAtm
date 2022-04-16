@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace HorseTrackAtm.Commands
@@ -79,7 +78,7 @@ namespace HorseTrackAtm.Commands
             return "Insufficient Funds: " + HorseTrackAtm.Currency + payOut;
         }
 
-        private string GetPayoutMessage(int payOut, Dictionary<int, int> payOutBreakDown)
+        private string GetPayoutMessage(int payOut, SortedDictionary<int, int> payOutBreakDown)
         {
             var message = new StringBuilder();
 
@@ -89,7 +88,7 @@ namespace HorseTrackAtm.Commands
 
             message.AppendLine("Dispensing:");
 
-            foreach (var denom in payOutBreakDown.OrderBy(x => x.Key))
+            foreach (var denom in payOutBreakDown)
             {
                 message.AppendFormat("{0}{1}, {2}", 
                     HorseTrackAtm.Currency, denom.Key, denom.Value);

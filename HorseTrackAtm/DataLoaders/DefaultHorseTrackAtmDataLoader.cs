@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HorseTrackAtm
 {
     public class DefaultHorseTrackAtmDataLoader : IHorseTrackAtmDataLoader
     {
-        public Dictionary<int, int> GetDenominations()
+        public SortedDictionary<int, int> GetDenominations()
         {
-            var ret = new Dictionary<int, int>()
+            var ret = new SortedDictionary<int, int>()
             {
                 { 1,   10 },
                 { 5,   10 },

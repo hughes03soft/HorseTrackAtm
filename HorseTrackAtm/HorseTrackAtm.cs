@@ -16,7 +16,7 @@ namespace HorseTrackAtm
         private const string HorsesStatusHeader = "Horses:";
         private const string HorseStatusFormat = "{0}, {1}, {2}, {3}";
 
-        private Dictionary<int, int> _denominations = new Dictionary<int, int>();
+        private SortedDictionary<int, int> _denominations = new SortedDictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
         private readonly IHorseTrackAtmDataLoader _loader;
 
@@ -94,10 +94,10 @@ namespace HorseTrackAtm
             return GetHorse(number) != null;
         }
 
-        public Dictionary<int, int> DispenseCash(int payout)
+        public SortedDictionary<int, int> DispenseCash(int payout)
         {
-            var ret = new Dictionary<int, int>();
-            var temp = new Dictionary<int, int>(_denominations);
+            var ret = new SortedDictionary<int, int>();
+            var temp = new SortedDictionary<int, int>(_denominations);
             var denoms = _denominations.Keys.Reverse();
 
             foreach(var denom in denoms)
