@@ -92,22 +92,11 @@ namespace HorseTrackAtm
             foreach(var denom in denoms)
             {
                 var quantity = temp[denom];
-                int finalQuantity = 1;
-                int i;
-                int offset = 0;
-                for (i = 0; i < quantity; i++)
-                {
-                    if (payout - denom * i < 0)
-                    {
-                        offset = 1;
-                        break;
-                    }
-                }
+                var maxQuantity = FindMaxDenomQuantity(payout, denom, quantity);
 
-                finalQuantity = i - offset;
-                payout -= denom * finalQuantity;
-                temp[denom] -= finalQuantity;
-                ret[denom] = finalQuantity;
+                payout -= denom * maxQuantity;
+                temp[denom] -= maxQuantity;
+                ret[denom] = maxQuantity;
 
                 if (payout == 0)
                     break;
@@ -121,6 +110,26 @@ namespace HorseTrackAtm
             {
                 _denominations = temp;
             }
+
+            return ret;
+        }
+
+        private int FindMaxDenomQuantity(int payout, int denom , int quantity)
+        {
+            int ret;
+            int i;
+            int offset = 0;
+
+            for (i = 0; i < quantity; i++)
+            {
+                if (payout - denom * i < 0)
+                {
+                    offset = 1;
+                    break;
+                }
+            }
+
+            ret = i - offset;
 
             return ret;
         }
