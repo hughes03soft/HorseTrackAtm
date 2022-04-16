@@ -106,5 +106,19 @@ namespace HorseTrackAtm.Tests
             var expectedWinningHorseNumber = 3;
             Assert.AreEqual(expectedWinningHorseNumber, _atm.WinningHorse);
         }
+
+        [DataTestMethod]
+        [DataRow("1asdf", "Invalid Command: 1asdf")]
+        [DataRow("1 sdf", "Invalid Command: 1 sdf")]
+        [DataRow("1 1sdf", "Invalid Command: 1 1sdf")]
+        [DataRow("1 1.58", "Invalid Bet: 1.58")]
+        [DataRow("99 15", "Invalid Horse Number: 99")]
+        public void BetOnHorseInvalid(string command, string expectedStatus)
+        {
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+
+            Assert.AreEqual(expectedStatus, actual);
+        }
     }
 }

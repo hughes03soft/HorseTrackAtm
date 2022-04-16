@@ -18,7 +18,7 @@ namespace HorseTrackAtm.Commands
                 return GetInvalidCommandMessage();
 
             if (_atm.GetHorse(_horseNumber) == null)
-                return "Invalid Horse Number: " + _horseNumber;
+                return GetInvalidHorseNumberMessage();
 
             _atm.WinningHorse = _horseNumber;
             return _atm.GetStatusMessage();
@@ -32,6 +32,11 @@ namespace HorseTrackAtm.Commands
 
             string horseNumber = command.Substring(2, command.Length - 2);
             return int.TryParse(horseNumber, out _horseNumber);
+        }
+
+        private string GetInvalidHorseNumberMessage()
+        {
+            return "Invalid Horse Number: " + _horseNumber;
         }
     }
 }

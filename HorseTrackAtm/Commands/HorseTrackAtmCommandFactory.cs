@@ -26,7 +26,7 @@ namespace HorseTrackAtm.Commands
                     ret = new SetWinningHorse(atm, command);
                     break;
                 default:
-                    if(Char.IsNumber(firstChar))
+                    if(char.IsNumber(firstChar))
                     {
                         ret = new BetOnHorse(atm, command);
                     }
