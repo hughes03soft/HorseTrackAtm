@@ -27,6 +27,7 @@ namespace HorseTrackAtm
         public void LoadHorses()
         {
             _horses = _loader.GetHorses();
+            _horses.Sort();
             WinningHorse = _horses[0].Number;
         }
 
@@ -84,6 +85,13 @@ namespace HorseTrackAtm
         public Dictionary<int, int> DispenseCash(int payout)
         {
             var ret = new Dictionary<int, int>();
+
+            var keys = _denominations.Keys.Reverse();
+
+            for(var amount = payout; amount > 0;)
+            {
+
+            }
 
             return ret;
         }

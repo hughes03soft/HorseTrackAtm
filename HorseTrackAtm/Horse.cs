@@ -1,6 +1,8 @@
-﻿namespace HorseTrackAtm
+﻿using System;
+
+namespace HorseTrackAtm
 {
-    public class Horse
+    public class Horse : IComparable
     {
         public int Number { get; private set; }
         public string Name { get; private set; }
@@ -11,6 +13,12 @@
             Number = number;
             Name = name;
             Odds = odds;
+        }
+
+        public int CompareTo(object other)
+        {
+            var otherHorse = (Horse)other;
+            return Number.CompareTo(otherHorse.Number);
         }
     }
 }
