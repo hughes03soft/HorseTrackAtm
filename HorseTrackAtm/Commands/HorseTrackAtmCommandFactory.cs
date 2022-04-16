@@ -10,13 +10,13 @@ namespace HorseTrackAtm.Commands
     {
         public static HorseTrackAtmCommand Create(HorseTrackAtm atm, string command)
         {
-            var firstChar = Char.ToUpper(command[0]);
+            var firstChar = char.ToUpper(command[0]);
 
             HorseTrackAtmCommand ret = null;
 
             switch(firstChar)
             {
-                case 'R':
+                case RestockCashInventory.FirstChar:
                     ret = new RestockCashInventory(atm, command);
                     break;
                 case 'Q':

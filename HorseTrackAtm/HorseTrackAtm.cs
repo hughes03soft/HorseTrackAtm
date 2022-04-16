@@ -65,5 +65,10 @@ namespace HorseTrackAtm
                 status.AppendLine();
             }
         }
+
+        public void UpdateInventory(int denomination, int quantity)
+        {
+            _denominations[denomination] = quantity;
+        }
     }
 }

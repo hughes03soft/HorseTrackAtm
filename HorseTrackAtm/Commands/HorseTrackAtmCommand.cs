@@ -8,6 +8,8 @@ namespace HorseTrackAtm.Commands
 {
     public abstract class HorseTrackAtmCommand
     {
+        private const string InvalidCommandMessage = "Invalid Command:";
+
         protected readonly HorseTrackAtm _atm;
         protected readonly string _command;
 
@@ -17,5 +19,10 @@ namespace HorseTrackAtm.Commands
             _command = command;
         }
         public abstract string Execute();
+
+        protected string GetInvalidCommandMessage()
+        {
+            return InvalidCommandMessage + " " + _command;
+        }
     }
 }

@@ -13,19 +13,7 @@ namespace HorseTrackAtm.Tests
     public class HorseTrackAtmTests
     {
         private HorseTrackAtm _atm = new HorseTrackAtm(new DefaultHorseTrackAtmDataLoader());
-
-        public HorseTrackAtmTests()
-        {
-            _atm.LoadDenominations();
-            _atm.LoadHorses();
-        }
-
-        [TestMethod()]
-        public void GetStartupMessageTest()
-        {
-            var actual = _atm.GetStatusMessage();
-
-            string expected =
+        private readonly string _defaultStatusMessage =
                 "Inventory:" + Environment.NewLine +
                 "$1, 10" + Environment.NewLine +
                 "$5, 10" + Environment.NewLine +
@@ -41,7 +29,17 @@ namespace HorseTrackAtm.Tests
                 "6, Pa Kettle, 5, lost" + Environment.NewLine +
                 "7, Gin Stinger, 6, lost" + Environment.NewLine;
 
-            Assert.AreEqual(expected, actual);
+        public HorseTrackAtmTests()
+        {
+            _atm.LoadDenominations();
+            _atm.LoadHorses();
+        }
+
+        [TestMethod()]
+        public void GetStartupMessageTest()
+        {
+            var actual = _atm.GetStatusMessage();
+            Assert.AreEqual(_defaultStatusMessage, actual);
         }
 
         [TestMethod()]
@@ -54,6 +52,18 @@ namespace HorseTrackAtm.Tests
             string expected = "Invalid Command: asdfsf";
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void RestockCashInventory()
+        {
+            _atm.UpdateInventory(1, 7);
+
+            var input = "r";
+            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
+            var actual = command.Execute();
+            
+            Assert.AreEqual(_defaultStatusMessage, actual);
         }
     }
 }
