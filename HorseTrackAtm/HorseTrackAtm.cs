@@ -12,45 +12,51 @@ namespace HorseTrackAtm
 
         private Dictionary<int, int> _denominations = new Dictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
+        
+        public int WinningHorse { get; set; }
+        public bool IsQuitting { get; }
+
 
         public void Load(IHorseTrackAtmDataLoader loader)
         {
             _denominations = loader.GetDenominations();
             _horses = loader.GetHorses();
-        }
-        public bool IsQuitting { get; }
 
-        public string GetStartupMessage()
+            WinningHorse = _horses[0].Number;
+        }
+
+        public string GetStatusMessage()
         {
             StringBuilder message = new StringBuilder();
-            AppendInventoryStartupMessage(message);
-            AppendHorsesStartupMessage(message);
+            AppendInventoryStatus(message);
+            AppendHorseStatus(message);
 
             return message.ToString();
         }
 
-        private void AppendInventoryStartupMessage(StringBuilder message)
+        private void AppendInventoryStatus(StringBuilder status)
         {
-            message.AppendLine("Inventory:");
+            status.AppendLine("Inventory:");
 
             foreach (var denomination in _denominations.Keys)
             {
                 var quantity = _denominations[denomination];
-                message.AppendFormat("{0}{1}, {2}", 
+                status.AppendFormat("{0}{1}, {2}", 
                     Currency, denomination, quantity);
-                message.AppendLine();
+                status.AppendLine();
             }
         }
 
-        private void AppendHorsesStartupMessage(StringBuilder message)
+        private void AppendHorseStatus(StringBuilder status)
         {
-            message.AppendLine("Horses:");
+            status.AppendLine("Horses:");
 
             foreach (var horse in _horses)
             {
-                message.AppendFormat("{0}, {1}, {2}", 
-                    horse.Number, horse.Name, horse.Odds);
-                message.AppendLine();
+                status.AppendFormat("{0}, {1}, {2}, {3}", 
+                    horse.Number, horse.Name, horse.Odds, 
+                    horse.Number == WinningHorse ? "won" : "lost");
+                status.AppendLine();
             }
         }
 

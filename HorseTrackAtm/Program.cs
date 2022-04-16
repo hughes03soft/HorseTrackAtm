@@ -13,7 +13,7 @@ namespace HorseTrackAtm
             var atm = new HorseTrackAtm();
             atm.Load(new DefaultHorseTrackAtmDataLoader());
 
-            var message = atm.GetStartupMessage();
+            var message = atm.GetStatusMessage();
             Console.Write(message);
 
             bool quit = false;
