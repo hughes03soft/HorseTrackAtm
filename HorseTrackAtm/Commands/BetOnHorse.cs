@@ -34,7 +34,7 @@ namespace HorseTrackAtm.Commands
             var payOutBreakDown = _atm.DispenseCash(payOut);
 
             if (payOutBreakDown.Count == 0)
-                return GetInsufficientFundsMessge();
+                return GetInsufficientFundsMessge(payOut);
 
             return GetPayoutMessage(payOut, payOutBreakDown);
         }
@@ -76,9 +76,9 @@ namespace HorseTrackAtm.Commands
             return "Invalid Bet: " + _possibleBet;
         }
 
-        private string GetInsufficientFundsMessge()
+        private string GetInsufficientFundsMessge(int payOut)
         {
-            return "Insufficient Funds: " + _possibleBet;
+            return "Insufficient Funds: $" + payOut;
         }
 
         private string GetPayoutMessage(int payOut, Dictionary<int, int> payOutBreakDown)
