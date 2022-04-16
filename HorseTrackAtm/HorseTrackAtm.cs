@@ -10,16 +10,23 @@ namespace HorseTrackAtm
     {
         private Dictionary<int, int> _denominations = new Dictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
-        
+        private readonly IHorseTrackAtmDataLoader _loader;
         public int WinningHorse { get; set; }
         public bool IsQuitting { get; }
 
-
-        public void Load(IHorseTrackAtmDataLoader loader)
+        public HorseTrackAtm(IHorseTrackAtmDataLoader loader)
         {
-            _denominations = loader.GetDenominations();
-            _horses = loader.GetHorses();
+            _loader = loader;
+        }
 
+        public void LoadDenominations()
+        {
+            _denominations = _loader.GetDenominations();
+        }
+
+        public void LoadHorses()
+        {
+            _horses = _loader.GetHorses();
             WinningHorse = _horses[0].Number;
         }
 

@@ -10,8 +10,11 @@ namespace HorseTrackAtm
     {
         static void Main(string[] args)
         {
-            var atm = new HorseTrackAtm();
-            atm.Load(new DefaultHorseTrackAtmDataLoader());
+            var loader = new DefaultHorseTrackAtmDataLoader();
+            var atm = new HorseTrackAtm(loader);
+
+            atm.LoadDenominations();
+            atm.LoadHorses();
 
             var message = atm.GetStatusMessage();
             Console.Write(message);

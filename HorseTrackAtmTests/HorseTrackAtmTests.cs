@@ -11,12 +11,13 @@ namespace HorseTrackAtm.Tests
     [TestClass()]
     public class HorseTrackAtmTests
     {
-        private HorseTrackAtm _atm = new HorseTrackAtm();
+        private HorseTrackAtm _atm = new HorseTrackAtm(new DefaultHorseTrackAtmDataLoader());
 
         [TestMethod()]
         public void GetStartupMessageTest()
         {
-            _atm.Load(new DefaultHorseTrackAtmDataLoader());
+            _atm.LoadDenominations();
+            _atm.LoadHorses();
 
             var actual = _atm.GetStatusMessage();
 
