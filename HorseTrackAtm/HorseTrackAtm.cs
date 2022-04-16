@@ -76,6 +76,11 @@ namespace HorseTrackAtm
             return _horses.Find(h => h.Number == number);
         }
 
+        public bool IsHorseRegistered(int number)
+        {
+            return GetHorse(number) != null;
+        }
+
         public SortedDictionary<int, int> DispenseCash(int payout)
         {
             return new SortedDictionary<int, int>();

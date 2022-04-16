@@ -17,7 +17,7 @@ namespace HorseTrackAtm.Commands
             if (IsValid(_command) == false)
                 return GetInvalidCommandMessage();
 
-            if (_atm.GetHorse(_horseNumber) == null)
+            if (!_atm.IsHorseRegistered(_horseNumber))
                 return GetInvalidHorseNumberMessage();
 
             _atm.WinningHorse = _horseNumber;
