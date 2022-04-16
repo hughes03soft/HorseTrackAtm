@@ -43,6 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BetOnHorse.cs" />
+    <Compile Include="Commands\HorseTrackAtmCommand.cs" />
+    <Compile Include="Commands\HorseTrackAtmCommandFactory.cs" />
+    <Compile Include="Commands\UnknownCommand.cs" />
+    <Compile Include="Commands\QuitCommand.cs" />
+    <Compile Include="Commands\RestockCashInventory.cs" />
+    <Compile Include="Commands\SetWinningHorse.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataLoaders\DefaultHorseTrackAtmDataLoader.cs" />
     <Compile Include="Horse.cs" />

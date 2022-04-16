@@ -65,10 +65,5 @@ namespace HorseTrackAtm
                 status.AppendLine();
             }
         }
-
-        public void ProcessInput(string input)
-        {
-            Console.WriteLine("Processing input: '{0}'", input);
-        }
     }
 }

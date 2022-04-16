@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HorseTrackAtm.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,16 @@ namespace HorseTrackAtm
             Console.Write(message);
 
             bool quit = false;
-
             while(quit == false)
             {
                 var input = Console.ReadLine();
-                atm.ProcessInput(input);
+                var command = HorseTrackAtmCommandFactory.Create(atm, input);
+
+                var result = command.Execute();
+
+                if (result.Length > 0)
+                    Console.WriteLine(result);
+
                 quit = atm.IsQuitting;
             }
         }
