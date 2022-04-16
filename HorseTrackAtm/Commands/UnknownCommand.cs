@@ -12,7 +12,7 @@ namespace HorseTrackAtm.Commands
 
         public override string Execute()
         {
-            throw new NotImplementedException();
+            return "Invalid Command: " + _command;
         }
     }
 }

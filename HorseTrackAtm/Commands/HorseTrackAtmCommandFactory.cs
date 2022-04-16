@@ -30,6 +30,10 @@ namespace HorseTrackAtm.Commands
                     {
                         ret = new BetOnHorse(atm, command);
                     }
+                    else
+                    {
+                        ret = new UnknownCommand(atm, command);
+                    }
                     break;
             }
 

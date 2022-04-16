@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HorseTrackAtm.Commands;
 
 namespace HorseTrackAtm.Tests
 {
@@ -13,12 +14,15 @@ namespace HorseTrackAtm.Tests
     {
         private HorseTrackAtm _atm = new HorseTrackAtm(new DefaultHorseTrackAtmDataLoader());
 
-        [TestMethod()]
-        public void GetStartupMessageTest()
+        public HorseTrackAtmTests()
         {
             _atm.LoadDenominations();
             _atm.LoadHorses();
+        }
 
+        [TestMethod()]
+        public void GetStartupMessageTest()
+        {
             var actual = _atm.GetStatusMessage();
 
             string expected =
@@ -36,6 +40,18 @@ namespace HorseTrackAtm.Tests
                 "5, Real Princess, 3, lost" + Environment.NewLine +
                 "6, Pa Kettle, 5, lost" + Environment.NewLine +
                 "7, Gin Stinger, 6, lost" + Environment.NewLine;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void UnknownCommand()
+        {
+            var input = "asdfsf";
+            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
+            var actual = command.Execute();
+
+            string expected = "Invalid Command: asdfsf";
 
             Assert.AreEqual(expected, actual);
         }
