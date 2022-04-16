@@ -84,13 +84,41 @@ namespace HorseTrackAtm
 
         public Dictionary<int, int> DispenseCash(int payout)
         {
-            var ret = new Dictionary<int, int>();
+            var ret = new Dictionary<int, int>(_denominations);
+            var temp = new Dictionary<int, int>(_denominations);
+            var denoms = _denominations.Keys.Reverse();
 
-            var keys = _denominations.Keys.Reverse();
-
-            for(var amount = payout; amount > 0;)
+            foreach(var denom in denoms)
             {
+                var quantity = temp[denom];
+                int finalQuantity = 1;
+                int i;
+                int offset = 0;
+                for (i = 0; i < quantity; i++)
+                {
+                    if (payout - denom * i < 0)
+                    {
+                        offset = 1;
+                        break;
+                    }
+                }
 
+                finalQuantity = i - offset;
+                payout -= denom * finalQuantity;
+                temp[denom] -= finalQuantity;
+                ret[denom] = finalQuantity;
+
+                if (payout == 0)
+                    break;
+            }
+
+            if(payout > 0)
+            {
+                ret.Clear();
+            }
+            else
+            {
+                _denominations = temp;
             }
 
             return ret;

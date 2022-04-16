@@ -21,7 +21,7 @@ namespace HorseTrackAtm.Commands
                 return GetInvalidHorseNumberMessage();
 
             _atm.WinningHorse = _horseNumber;
-            return _atm.GetStatusMessage();
+            return "";
         }
 
         private bool IsValid(string command)

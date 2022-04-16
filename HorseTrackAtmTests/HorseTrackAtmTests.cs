@@ -62,6 +62,7 @@ namespace HorseTrackAtm.Tests
             var command = "r";
             var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
             var actual = atmCommand.Execute();
+            actual += _atm.GetStatusMessage();
             
             Assert.AreEqual(_defaultStatusMessage, actual);
         }
@@ -96,6 +97,7 @@ namespace HorseTrackAtm.Tests
             var command = "w 3";
             var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
             var actual = atmCommand.Execute();
+            actual += _atm.GetStatusMessage();
 
             var expectedStatus = string.Copy(_defaultStatusMessage);
             expectedStatus = expectedStatus.Replace("won", "lost");
@@ -133,5 +135,18 @@ namespace HorseTrackAtm.Tests
 
             Assert.AreEqual(expectedStatus, actual);
         }
+
+        [TestMethod()]
+        public void BetOnHorseInsufficientFunds()
+        {
+            _atm.WinningHorse = 2;
+            var command = "2 137";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+            var expected = "Insufficient Funds: $1370";
+
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

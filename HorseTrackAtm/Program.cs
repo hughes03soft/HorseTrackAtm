@@ -31,6 +31,8 @@ namespace HorseTrackAtm
                 if (result.Length > 0)
                     Console.WriteLine(result);
 
+                Console.Write(atm.GetStatusMessage());
+
                 quit = atm.IsQuitting;
             }
         }

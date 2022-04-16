@@ -14,12 +14,11 @@ namespace HorseTrackAtm.Commands
 
         public override string Execute()
         {
-            string ret;
+            string ret = "";
 
             if(IsValid(_command))
             {
                 _atm.LoadDenominations();
-                ret = _atm.GetStatusMessage();
             }
             else
             {
