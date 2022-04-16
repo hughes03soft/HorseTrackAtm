@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLoaders\DefaultHorseTrackAtmDataLoader.cs" />
+    <Compile Include="Horse.cs" />
     <Compile Include="HorseTrackAtm.cs" />
+    <Compile Include="DataLoaders\IHorseTrackAtmDataLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

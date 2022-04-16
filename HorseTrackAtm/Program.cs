@@ -11,7 +11,10 @@ namespace HorseTrackAtm
         static void Main(string[] args)
         {
             var atm = new HorseTrackAtm();
-            atm.ShowStartupMessage();
+            atm.Load(new DefaultHorseTrackAtmDataLoader());
+
+            var message = atm.GetStartupMessage();
+            Console.Write(message);
 
             bool quit = false;
 

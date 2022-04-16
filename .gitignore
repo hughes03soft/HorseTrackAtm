@@ -7,3 +7,6 @@
 /.vs
 /bin/Release
 /obj/Release
+/packages
+/HorseTrackAtm/bin
+/HorseTrackAtm/obj
