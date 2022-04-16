@@ -39,7 +39,7 @@ namespace HorseTrackAtm.Commands
 
         private bool IsValid(string command)
         {
-            var oneSpace = ' ';
+            const char oneSpace = ' ';
             var firstSpaceIndex = command.IndexOf(oneSpace);
             const int notFound = -1;
             if (firstSpaceIndex == notFound)
@@ -75,14 +75,15 @@ namespace HorseTrackAtm.Commands
 
         private string GetInsufficientFundsMessge(int payOut)
         {
-            return "Insufficient Funds: $" + payOut;
+            return "Insufficient Funds: " + HorseTrackAtm.Currency + payOut;
         }
 
         private string GetPayoutMessage(int payOut, Dictionary<int, int> payOutBreakDown)
         {
             var message = new StringBuilder();
 
-            message.AppendFormat("Payout: {0}, ${1}", _horse.Name, payOut);
+            message.AppendFormat("Payout: {0}, {1}{2}", 
+                _horse.Name, HorseTrackAtm.Currency, payOut);
             message.AppendLine();
 
             message.AppendLine("Dispensing:");
@@ -92,7 +93,8 @@ namespace HorseTrackAtm.Commands
                 if (denom.Value == 0)
                     continue;
 
-                message.AppendFormat("${0}, {1}", denom.Key, denom.Value);
+                message.AppendFormat("{0}{1}, {2}", 
+                    HorseTrackAtm.Currency, denom.Key, denom.Value);
                 message.AppendLine();
             }
 

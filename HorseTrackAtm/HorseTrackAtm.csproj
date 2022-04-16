@@ -50,7 +50,6 @@
     <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\RestockCashInventory.cs" />
     <Compile Include="Commands\SetWinningHorse.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="DataLoaders\DefaultHorseTrackAtmDataLoader.cs" />
     <Compile Include="Horse.cs" />
     <Compile Include="HorseTrackAtm.cs" />

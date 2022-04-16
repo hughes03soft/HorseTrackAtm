@@ -20,7 +20,7 @@
 
         private bool IsValid(string command)
         {
-            char oneSpace = ' ';
+            const char oneSpace = ' ';
             if (command[1] != oneSpace)
                 return false;
 

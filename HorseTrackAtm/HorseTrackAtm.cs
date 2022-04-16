@@ -7,9 +7,19 @@ namespace HorseTrackAtm
 {
     public class HorseTrackAtm
     {
+        public const string Currency = "$";
+
+        private const string WinStatus = "won";
+        private const string LossStatus = "lost";
+        private const string InventoryStatusHeader = "Inventory:";
+        private const string InventoryStatusFormat = "{0}{1}, {2}";
+        private const string HorsesStatusHeader = "Horses:";
+        private const string HorseStatusFormat = "{0}, {1}, {2}, {3}";
+
         private Dictionary<int, int> _denominations = new Dictionary<int, int>();
         private List<Horse> _horses = new List<Horse>();
         private readonly IHorseTrackAtmDataLoader _loader;
+
         public int WinningHorse { get; set; }
         public bool IsQuitting { get; set; }
 
@@ -43,27 +53,27 @@ namespace HorseTrackAtm
 
         private void AppendInventoryStatus(StringBuilder status)
         {
-            status.AppendLine(Constants.InventoryStatusHeader);
+            status.AppendLine(InventoryStatusHeader);
 
             foreach (var denomination in _denominations.Keys)
             {
                 var quantity = _denominations[denomination];
-                status.AppendFormat(Constants.InventoryStatusFormat,
-                    Constants.Currency, denomination, quantity);
+                status.AppendFormat(InventoryStatusFormat,
+                    Currency, denomination, quantity);
                 status.AppendLine();
             }
         }
 
         private void AppendHorseStatus(StringBuilder status)
         {
-            status.AppendLine(Constants.HorsesStatusHeader);
+            status.AppendLine(HorsesStatusHeader);
 
             foreach (var horse in _horses)
             {
-                status.AppendFormat(Constants.HorseStatusFormat, 
+                status.AppendFormat(HorseStatusFormat, 
                     horse.Number, horse.Name, horse.Odds, 
                     horse.Number == WinningHorse ?
-                    Constants.WinStatus : Constants.LossStatus);
+                    WinStatus : LossStatus);
                 status.AppendLine();
             }
         }
