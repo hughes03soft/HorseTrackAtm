@@ -19,7 +19,7 @@ namespace HorseTrackAtm.Commands
                 case RestockCashInventory.FirstChar:
                     ret = new RestockCashInventory(atm, command);
                     break;
-                case 'Q':
+                case QuitCommand.FirstChar:
                     ret = new QuitCommand(atm, command);
                     break;
                 case 'W':

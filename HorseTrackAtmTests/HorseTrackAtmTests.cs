@@ -65,5 +65,16 @@ namespace HorseTrackAtm.Tests
             
             Assert.AreEqual(_defaultStatusMessage, actual);
         }
+
+        [TestMethod()]
+        public void Quit()
+        {
+            var input = "q";
+            var command = HorseTrackAtmCommandFactory.Create(_atm, input);
+            var actual = command.Execute();
+
+            Assert.IsTrue(actual.Length == 0);
+            Assert.IsTrue(_atm.IsQuitting);
+        }
     }
 }

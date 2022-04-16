@@ -12,7 +12,7 @@ namespace HorseTrackAtm
         private List<Horse> _horses = new List<Horse>();
         private readonly IHorseTrackAtmDataLoader _loader;
         public int WinningHorse { get; set; }
-        public bool IsQuitting { get; }
+        public bool IsQuitting { get; set; }
 
         public HorseTrackAtm(IHorseTrackAtmDataLoader loader)
         {
