@@ -91,6 +91,9 @@ namespace HorseTrackAtm.Commands
             message.AppendLine("Dispensing:");
             foreach(var denom in payOutBreakDown)
             {
+                if (denom.Value == 0)
+                    continue;
+
                 message.AppendFormat("${0}, {1}", denom.Key, denom.Value);
                 message.AppendLine();
             }

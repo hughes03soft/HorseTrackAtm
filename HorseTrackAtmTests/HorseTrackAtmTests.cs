@@ -148,5 +148,22 @@ namespace HorseTrackAtm.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod()]
+        public void BetOnHorseSufficientFunds()
+        {
+            _atm.WinningHorse = 5;
+            var command = "5 137";
+            var atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            var actual = atmCommand.Execute();
+            var expected = 
+                "Payout: Real Princess, $411" + Environment.NewLine +
+                "Dispensing:" + Environment.NewLine +
+                "$1, 1" + Environment.NewLine +
+                "$10, 1" + Environment.NewLine +
+                "$100, 4" + Environment.NewLine;
+
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }
