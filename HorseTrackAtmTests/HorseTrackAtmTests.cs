@@ -192,5 +192,60 @@ namespace HorseTrackAtm.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void BetOnHorseSufficientFundsToInsufficientThenRestock()
+        {
+            string command;
+            HorseTrackAtmCommand atmCommand;
+
+            StringBuilder actual = new StringBuilder();
+            for(int i = 0; i < 18; i++ )
+            {
+                command = "1 2";
+                atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+                actual.AppendLine(atmCommand.Execute());
+            }
+
+            command = "r";
+            atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            atmCommand.Execute();
+
+            command = "1 2";
+            atmCommand = HorseTrackAtmCommandFactory.Create(_atm, command);
+            actual.AppendLine(atmCommand.Execute());
+
+            StringBuilder expected = new StringBuilder();
+
+            for(int i = 0; i < 10; i++)
+            {
+                expected.AppendLine("Payout: That Darn Gray Cat, $10");
+                expected.AppendLine("Dispensing:");
+                expected.AppendLine("$10, 1");
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                expected.AppendLine("Payout: That Darn Gray Cat, $10");
+                expected.AppendLine("Dispensing:");
+                expected.AppendLine("$5, 2");
+            }
+
+            expected.AppendLine("Payout: That Darn Gray Cat, $10");
+            expected.AppendLine("Dispensing:");
+            expected.AppendLine("$1, 10");
+
+            expected.AppendLine("Insufficient Funds: $10");
+            expected.AppendLine("Insufficient Funds: $10");
+
+            expected.AppendLine("Payout: That Darn Gray Cat, $10");
+            expected.AppendLine("Dispensing:");
+            expected.AppendLine("$10, 1");
+
+            var expectedStr = expected.ToString();
+            var actualStr = actual.ToString();
+
+            Assert.AreEqual(expectedStr, actualStr);
+        }
     }
 }

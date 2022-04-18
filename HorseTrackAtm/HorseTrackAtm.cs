@@ -111,41 +111,37 @@ namespace HorseTrackAtm
                     temp[denom] -= maxQuantity;
                     ret[denom] = maxQuantity;
                 }
-
+ 
                 if (payout == 0)
                     break;
             }
 
             if(payout > 0)
-            {
                 ret.Clear();
-            }
             else
-            {
                 _denominations = temp;
-            }
 
             return ret;
         }
 
         private int FindMaxDenomQuantity(int payout, int denom , int quantity)
         {
-            int ret;
-            int i;
-            int offset = 0;
+            if (quantity == 0)
+                return 0;
 
-            for (i = 0; i < quantity; i++)
+            int denomQuantity;
+            for (denomQuantity = 1; denomQuantity <= quantity; denomQuantity++)
             {
-                if (payout - denom * i < 0)
-                {
-                    offset = 1;
+                var amountLeft = payout - denom * denomQuantity;
+
+                if(amountLeft < 0)
+                    denomQuantity--;
+
+                if (amountLeft <= 0)
                     break;
-                }
             }
 
-            ret = i - offset;
-
-            return ret;
+            return denomQuantity;
         }
     }
 }
