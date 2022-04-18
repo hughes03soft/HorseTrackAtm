@@ -4,6 +4,9 @@
     {
         public static HorseTrackAtmCommand Create(HorseTrackAtm atm, string command)
         {
+            if(command.Length == 0)
+                return new UnknownCommand(atm, command);
+
             var firstChar = char.ToUpper(command[0]);
 
             HorseTrackAtmCommand ret;
